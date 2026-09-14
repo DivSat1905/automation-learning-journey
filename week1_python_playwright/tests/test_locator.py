@@ -1,24 +1,15 @@
 from playwright.sync_api import sync_playwright
 
 
-def test_launch_homepage():
+def test_signup_login_locator():
     with sync_playwright() as p:
-
-        # Launch browser
         browser = p.chromium.launch(headless=False)
 
-        # Open new tab
         page = browser.new_page()
-
-        # Open website
         page.goto("https://automationexercise.com")
-
-        # Verify title
-        assert "Automation Exercise" in page.title()
-
-        print("Page Title:", page.title())
 
         page.get_by_role("link", name="Signup / Login").click()
 
-        # Close browser
+        assert "login" in page.url
+
         browser.close()
